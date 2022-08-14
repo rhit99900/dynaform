@@ -1,0 +1,17 @@
+{
+  "title": "DynaForm.js Example",
+  "sections": [
+    {
+      "title": "Section 1, DynaForm",
+      "type": "section",
+      "properties": {
+        "name": {
+          "type": "string",
+          "label": "Name",
+          "element": "input",
+          "path": "name"   
+        }
+      }
+    }
+  ]
+}
