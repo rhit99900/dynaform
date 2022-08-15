@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core'
 
 import Input from './FormComponents/input'
-
+import TextArea from './FormComponents/textarea'
 import Helpers from '../../utils/helpers'
 
 const Section = (props) => {
@@ -32,8 +32,14 @@ const Section = (props) => {
           />
         )        
       case 'textarea':
-        console.log(element)
-        break;
+        console.log('TextArea with element',element)
+        return (
+          <TextArea
+            key={key}
+            onChange={onChange}
+            {...element}            
+          />
+        )
       case 'upload':
         console.log(element)
         break;

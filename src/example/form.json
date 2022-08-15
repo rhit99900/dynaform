@@ -1,17 +1,46 @@
 {
   "title": "DynaForm.js Example",
-  "sections": [
-    {
-      "title": "Section 1, DynaForm",
-      "type": "section",
+  "type": "object",
+  "element": "form",
+  "properties": {
+    "basic_details": {
+      "title": "Basic Details",
+      "type": "object",      
+      "element": "section",
       "properties": {
         "name": {
           "type": "string",
           "label": "Name",
           "element": "input",
           "path": "name"   
+        },
+        "description": {
+          "type": "string",
+          "label": "Description",
+          "element": "textarea",
+          "path": "description"
         }
       }
-    }
-  ]
+    },
+    "address": {
+      "title": "Address",
+      "type": "object",
+      "element": "section",
+      "properties": {
+        "address": {
+          "type": "object",
+          "label": "Address",
+          "element": "row",
+          "properties": {
+            "street": {
+              "type": "string",
+              "label": "Street",
+              "element": "input",
+              "path": "address.street"
+            }
+          }
+        }
+      }
+    } 
+  } 
 }

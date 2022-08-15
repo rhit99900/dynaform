@@ -6,6 +6,11 @@ const setDataToObject = (path, value, data) => {
   return returnData 
 }
 
+const cloneObject = (object) => {
+  return _.cloneDeep(object)
+}
+
 export default { 
-  setDataToObject
+  setDataToObject,
+  cloneObject
 }
