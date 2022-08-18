@@ -1,7 +1,19 @@
 {
-  "name": "dynamic-json-form",
-  "version": "0.1.0",
-  "private": true,
+  "name": "json-dynaform",
+  "version": "0.1.0-alpha",
+  "keywords": [
+    "dynamic form",
+    "json form",
+    "react form",
+    "react dynamic form",
+    "form",
+    "react",
+    "dynamic",
+    "json",
+    "custom form"
+  ],
+  "main": "src/components/index.js",
+  "author": "Rohit Nair <rohitcse081@gmail.com>",
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",

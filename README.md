@@ -5,7 +5,7 @@
 
 ## Usage
 ```JSX
-import Form from 'react-dynaform'
+import Form from 'npm i json-dynaform'
 import schema from '<path>/schema.json'
 
 const actions = [{
