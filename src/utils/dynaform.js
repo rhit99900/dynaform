@@ -69,8 +69,8 @@ class DynaForm {
           })
         }
 
-        if(!node.value.properties){
-          this.ELEMENTS[section].push(node.value)
+        if(!node.value.properties){          
+          this.ELEMENTS[node.parent.section || node.section].push(node.value)
         }        
 
         if(node.value.validations){
@@ -85,23 +85,27 @@ class DynaForm {
         }
 
         for(const node_index in node.value.properties){
-          queue.push({
-            value: node.value.properties[node_index],
-            parent: node.value.properties,
-            key: node_index
-          })
-
           if(node.value.properties[node_index].element === SECTION_ELEMENT_TYPE){            
-            if(this.SECTIONS.length === 0 || this.SECTIONS.findIndex(section => section.key === node_index) === -1){
+            if(this.SECTIONS.length === 0 || this.SECTIONS.findIndex(sec => sec.key === node_index) === -1){
               this.SECTIONS.push({
                 key: node_index,
                 title: node.value.properties[node_index].title
               })
-            }
-            console.log(node.value, node.value.element)
-            section = node_index
+            }            
+            section = node_index      
             if(!this.ELEMENTS.hasOwnProperty(section)) this.ELEMENTS[section] = []
           }
+
+          // Pushing Child Nodes to the Queue 
+          queue.push({
+            value: node.value.properties[node_index],
+            parent: {
+              ...node.value.properties,
+              section: node.section || section
+            },
+            key: node_index,
+            section: section
+          })
         }
       }          
     }

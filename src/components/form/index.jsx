@@ -4,7 +4,7 @@ import {
   Stepper, 
   Step, 
   StepLabel 
-} from '@material-ui/core'
+} from '@mui/material'
 
 import Section from './section'
 import Action from './FormComponents/action'
@@ -12,36 +12,47 @@ import Action from './FormComponents/action'
 import Helpers from '../../utils/helpers'
 import DynaForm  from '../../utils/dynaform'
 
+const PREVIOUS = 'previous'
+const NEXT = 'next'
+
 const Form = (props) => {
     const { 
       schema, 
       actions,
-      value 
+      values,
+      isReadOnly 
     } = props
 
     const [ sections, setSections ] = useState([])
     const [ data, setData ] = useState({})    
     const [ elements, setElements ] = useState([])
+    const [ activeSection, setActiveSection ] = useState(1)    
 
     useEffect(() => {   
       let thisForm = new DynaForm(schema)
       thisForm = thisForm.generateElements()
 
-      console.log('Form Elements', thisForm.elements(), 'Form Validations', thisForm.validations, 'Form Sections', thisForm.sections())
-
-      
       setElements(thisForm.elements())
       setSections(thisForm.sections())
 
     },[schema])
 
-    const onChange = (path, value) => {
-      console.log(path, value)
+    const onChange = (path, value) => {      
       Helpers.setDataToObject(path, value, data)
-    }      
+    }   
+    
+    const sectionChangeHandler = (action) => {
+      if(action){
+        console.log(action)
+        if(action === PREVIOUS) setActiveSection(activeSection - 1)
+        if(action === NEXT) setActiveSection(activeSection + 1)        
+      }
+    }
 
     return (      
       <Box>
+
+        {schema.title && <h1>{schema.title}</h1>}
 
         {/* Display Stepper UI incase the number of sections in the form are more than or equal to 2  */}
         {(sections && sections.length >= 2)? (
@@ -53,37 +64,56 @@ const Form = (props) => {
             ))}
           </Stepper>
         ): null}
-
-        {/* {schema.title && <h1>{schema.title}</h1>}
-        {(sections && sections.length)? (
+            
+        {(elements && Object.keys(elements).length && sections[activeSection - 1]?.key) ? (
           <>
-            {sections.map((section, index) => (
-              <Section
-                key={index} 
-                schema={section}
+            {elements[sections[activeSection - 1].key] && (
+              <Section                
+                schema={elements[sections[activeSection - 1].key]}
                 values={data}
                 onChange={onChange}
+                isReadOnly={isReadOnly}
               />
-            ))}
+            )}
           </>
-        ): "No Form Sections Found"} */}
+        ): "No Form Sections Found"}
 
-        {/* {(actions && actions.length)? (
-          <>
-            {actions.map((action, index) => {
-              console.log(action)
-              return (
-                <Action 
-                  key={index}
-                  type={action.isPrimary ? 'primary': 'secondary'}
-                  label={action.label}
-                  handler={action.handler}
-                />
-              )
-            })}
-          </>
-        ): "No Form Actions Found"} */}
-      </Box>
+        <Box>
+          {(actions && actions.length)? (
+            <>
+              {actions.map((action, index) => {              
+                return (
+                  <Action 
+                    key={index}
+                    type={action.isPrimary ? 'primary': 'secondary'}
+                    label={action.label}
+                    handler={action.handler}
+                  />
+                )
+              })}
+            </>
+          ): "No Form Actions Found"}
+
+          {(sections && sections.length >= 2)? (
+            <>
+              <Action             
+                type={'secondary'}
+                label={'Previous'}
+                disabled={activeSection === 1}
+                action={PREVIOUS}
+                handler={sectionChangeHandler}
+              />          
+              <Action             
+                type={'secondary'}
+                label={'Next'}
+                disabled={activeSection === sections.length}
+                action={NEXT}
+                handler={sectionChangeHandler}
+              />
+            </>
+          ): null}
+        </Box>
+      </Box>      
     )
 
 }

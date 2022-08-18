@@ -1,18 +1,22 @@
 import React from 'react'
 import { 
   Button 
-} from '@material-ui/core'
+} from '@mui/material'
 
 const Action = React.memo(props => {
-  const { label, type, hanler } = props
+  const { label, type, handler, disabled, action } = props
 
-  console.log(props)
+  const actionHandler = () => {    
+    if(handler && !action) handler()
+    else handler(action)
+  }
 
   return (
     <Button 
-      variant="contained"
-      onClick={hanler}
+      variant="outlined"
+      onClick={actionHandler}
       color={type}
+      { ...(disabled ? { disabled: true } : [])}
     >
       {label}
     </Button>

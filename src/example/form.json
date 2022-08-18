@@ -19,6 +19,26 @@
           "label": "Description",
           "element": "textarea",
           "path": "description"
+        },
+        "email": {
+          "type": "string",
+          "label": "Email",
+          "placeholder": "Please Enter your Email ID",
+          "path": "email",
+          "element": "input",
+          "validations": {
+            "required": "true",
+            "format": "email"
+          }
+        },
+        "profile_picture": {
+          "type": "string",
+          "label": "Profile Image",          
+          "path": "image",
+          "element": "upload",
+          "validations": {
+            "required": "true"            
+          }
         }
       }
     },
@@ -37,6 +57,24 @@
               "label": "Street",
               "element": "input",
               "path": "address.street"
+            },
+            "locality": {
+              "type": "string",
+              "label": "Locality",
+              "element": "input",
+              "path": "address.locality"
+            },
+            "region": {
+              "type": "string",
+              "label": "Region",
+              "element": "input",
+              "path": "address.region"
+            },
+            "area_code": {
+              "type": "string",
+              "label": "Zipcode/Pincode",
+              "element": "input",
+              "path": "address.area_code"
             }
           }
         }

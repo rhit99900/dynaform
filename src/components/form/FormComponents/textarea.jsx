@@ -2,7 +2,9 @@ import React from 'react'
 import { 
   TextField,
   Box 
-} from '@material-ui/core'
+} from '@mui/material'
+
+import { InputFields } from '../../style'
 
 const TextArea = (props) => {
   const { path, label, key, onChange, rows} = props
@@ -13,6 +15,8 @@ const TextArea = (props) => {
     <Box>
       <TextField 
         label={label || 'Text Field'}
+        variant="standard"
+        style={InputFields}
         name={path}
         key={key}
         multiline

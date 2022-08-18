@@ -1,48 +1,55 @@
 import React, { useEffect, useState } from 'react'
 import { 
   Box 
-} from '@material-ui/core'
+} from '@mui/material'
 
 import Input from './FormComponents/input'
 import TextArea from './FormComponents/textarea'
 import Helpers from '../../utils/helpers'
+import Upload from './FormComponents/upload'
 
 const Section = (props) => {
 
-  const { schema, onChange }  = props
+  const { schema, onChange, isReadOnly }  = props
   const [ elements, setElements ] = useState({})
 
   
   useEffect(() => {
-    if(schema && schema.hasOwnProperty('properties')){
-      setElements(schema.properties)
+    if(schema && schema.length){
+      setElements(schema)
     }
   }, [schema])  
 
   const generateElements = (element, key) => {
 
     switch(element.element){
-      case 'input':
-        console.log('Input with element',element)
+      case 'input':        
         return (
           <Input
             key={key}
             onChange={onChange}
-            {...element}            
+            {...element}
+            isReadOnly={isReadOnly}
           />
         )        
-      case 'textarea':
-        console.log('TextArea with element',element)
+      case 'textarea':        
         return (
           <TextArea
             key={key}
             onChange={onChange}
-            {...element}            
+            {...element}
+            isReadOnly={isReadOnly}
           />
         )
       case 'upload':
-        console.log(element)
-        break;
+        return (
+          <Upload
+            key={key}
+            onChange={onChange}
+            {...element}
+            isReadOnly={isReadOnly}
+          />
+        )
       default: 
         console.error('Incorrect Element Type')
     }

@@ -8,11 +8,23 @@
 import Form from 'react-dynaform'
 import schema from '<path>/schema.json'
 
+const actions = [{
+  label: 'Save',
+  handler: onSave,
+  isPrimary: true
+},{
+  label: 'Cancel',
+  handler: onCancel,
+  isPrimary: false
+}]
+
 return(
   <Form 
     schema={schema}
     onChange={onChange}
-    values={values}    
+    values={values}
+    actions={actions}
+    isReadOnly={false}
   />
 )
 ```

@@ -8,7 +8,7 @@ import {
   AppBar,
   Toolbar,
   Typography   
-} from '@material-ui/core'
+} from '@mui/material'
 
 const DynaForm = () => {
 
@@ -55,8 +55,9 @@ const DynaForm = () => {
           <Form 
             schema={formSchema}
             onChange={onChange}
-            value={value}
+            values={value}            
             actions={actions}
+            isReadOnly={false}
           />
         </Container>
       </Box>
